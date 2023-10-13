@@ -33,6 +33,7 @@ return {
     event = "User LoadColorSchemes",
     opts = {
       dim_inactive = false,
+      transparent = true,
       styles = {
         comments = { italic = true },
         keywords = { italic = true },
