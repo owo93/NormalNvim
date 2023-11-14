@@ -52,6 +52,15 @@ return {
     },
   },
 
+  {
+    "craftzdog/solarized-osaka.nvim",
+    lazy = false,
+    priority = 1000,
+    opts  = {
+    },
+
+  },
+
   --  alpha-nvim [greeter]
   --  https://github.com/goolord/alpha-nvim
   {
