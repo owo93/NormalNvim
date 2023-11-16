@@ -57,6 +57,9 @@ return {
     lazy = false,
     priority = 1000,
     opts  = {
+      transparent = true,
+      comments = { italic = true },
+      keywords = { italic = true },
     },
 
   },
