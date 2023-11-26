@@ -63,6 +63,7 @@ return {
     },
 
   },
+  {"myagko/nymph.nvim"},
 
   --  alpha-nvim [greeter]
   --  https://github.com/goolord/alpha-nvim
