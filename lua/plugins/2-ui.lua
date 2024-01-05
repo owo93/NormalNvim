@@ -32,9 +32,10 @@ return {
     "Zeioth/tokyonight.nvim",
     event = "User LoadColorSchemes",
     opts = {
-      dim_inactive = false,
-      transparent = true,
+      dim_inactive = true,
+      transparent = false,
       styles = {
+        sidebars = "dark",
         comments = { italic = true },
         keywords = { italic = true },
       },
