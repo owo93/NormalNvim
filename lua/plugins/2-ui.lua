@@ -249,24 +249,24 @@ return {
       options = { border = "top", try_as_border = true },
       symbol = "▏",
     },
-    -- config = function(_, opts)
-    --   require("mini.indentscope").setup(opts)
-    --
-    --   -- Disable for certain filetypes
-    --   vim.api.nvim_create_autocmd({ "User AlphaReady", "BufEnter" }, {
-    --     desc = "Disable indentscope for certain filetypes",
-    --     callback = function()
-    --       if vim.bo.filetype == "alpha"
-    --         or vim.bo.filetype == "neo-tree"
-    --         or vim.bo.filetype == "mason"
-    --         or vim.bo.filetype == "notify"
-    --         or vim.bo.filetype == "leetcode.nvim"
-    --       then
-    --         vim.b.miniindentscope_disable = true
-    --       end
-    --     end,
-    --   })
-    -- end
+    config = function(_, opts)
+      require("mini.indentscope").setup(opts)
+
+      -- Disable for certain filetypes
+      vim.api.nvim_create_autocmd({ "BufEnter" }, {
+        desc = "Disable indentscope for certain filetypes",
+        callback = function()
+          if vim.bo.filetype == "alpha"
+            or vim.bo.filetype == "neo-tree"
+            or vim.bo.filetype == "mason"
+            or vim.bo.filetype == "notify"
+            or vim.bo.filetype == "leetcode.nvim"
+          then
+            vim.b.miniindentscope_disable = true
+          end
+        end,
+      })
+    end
   },
 
   --  heirline [statusbar]
