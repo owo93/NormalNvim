@@ -35,6 +35,7 @@ return {
       dim_inactive = false,
       transparent = true,
       styles = {
+        sidebars = "transparent",
         comments = { italic = true },
         keywords = { italic = true },
       },
