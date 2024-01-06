@@ -24,13 +24,8 @@
 --       -> cmp-luasnip                    [auto completion snippets]
 
 return {
-  {
-    "HakonHarnes/img-clip.nvim",
-    event = "BufEnter",
-    opts = {},
-  },
   --  TREE SITTER ---------------------------------------------------------
-  --  [syntax highlight] + [treesitter understand html tags] + [comments]williamboma
+  --  [syntax highlight] + [treesitter understand html tags] + [comments]
   --  https://github.com/nvim-treesitter/nvim-treesitter
   --  https://github.com/windwp/nvim-ts-autotag
   --  https://github.com/windwp/nvim-treesitter-textobjects
@@ -259,7 +254,6 @@ return {
     },
     opts = {
       ui = {
-        border = "rounded",
         icons = {
           package_installed = "✓",
           package_uninstalled = "✗",
