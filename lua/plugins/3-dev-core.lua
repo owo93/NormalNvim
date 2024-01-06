@@ -2,6 +2,7 @@
 -- Things that are just there.
 
 --    Sections:
+--       ## IMG-CLIP
 --       ## TREE SITTER
 --       -> nvim-treesitter                [syntax highlight]
 --       -> nvim-ts-autotag                [treesitter understand html tags]
@@ -24,6 +25,11 @@
 --       -> cmp-luasnip                    [auto completion snippets]
 
 return {
+  {
+    "HakonHarnes/img-clip.nvim",
+    event = "BufEnter",
+    opts = {},
+  },
   --  TREE SITTER ---------------------------------------------------------
   --  [syntax highlight] + [treesitter understand html tags] + [comments]
   --  https://github.com/nvim-treesitter/nvim-treesitter
