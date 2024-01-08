@@ -10,11 +10,12 @@
 --       -> nvim-colorizer                 [hex colors]
 
 --       ## LSP
+--       -> nvim-java                      [java support]
 --       -> nvim-lspconfig                 [lsp config]
---       -> lsp-timeout                    [lsp garbage collector]
+--       -> garbage-day                    [lsp garbage collector]
 --       -> mason.nvim                     [lsp package manager]
 --       -> SchemaStore.nvim               [lsp schema manager]
---       -> null-ls                        [lsp code formatting]
+--       -> none-ls                        [lsp code formatting]
 --       -> neodev                         [lsp for nvim lua api]
 
 --       ## AUTO COMPLETON
@@ -153,6 +154,33 @@ return {
   },
 
   --  LSP -------------------------------------------------------------------
+
+  -- nvim-java [java support]
+  -- https://github.com/neovim/nvim-lspconfig
+  -- Reliable jdtls support. Must go before lsp-config.
+  {
+    'nvim-java/nvim-java',
+    ft = { "java" },
+    dependencies = {
+      'nvim-java/lua-async-await',
+      'nvim-java/nvim-java-core',
+      'nvim-java/nvim-java-test',
+      'nvim-java/nvim-java-dap',
+      'MunifTanjim/nui.nvim',
+      'neovim/nvim-lspconfig',
+      'mfussenegger/nvim-dap',
+      {
+        'williamboman/mason.nvim',
+        opts = {
+          registries = {
+            'github:nvim-java/mason-registry',
+            'github:mason-org/mason-registry',
+          },
+        },
+      }
+    },
+  },
+
   --  Syntax highlight [lsp config]
   --  https://github.com/neovim/nvim-lspconfig
   {
@@ -167,7 +195,7 @@ return {
         end,
         config = function(_, opts)
           require("mason-lspconfig").setup(opts)
-          require("base.utils").event "MasonLspSetup"
+          require("base.utils").event("MasonLspSetup")
         end,
       },
     },
@@ -214,7 +242,7 @@ return {
       end
       local setup_servers = function()
         vim.api.nvim_exec_autocmds("FileType", {})
-        require("base.utils").event "LspSetup"
+        require("base.utils").event("LspSetup")
       end
       if require("base.utils").is_available "mason-lspconfig.nvim" then
         vim.api.nvim_create_autocmd("User", {
@@ -229,20 +257,22 @@ return {
     end,
   },
 
-  --  lsp-timeout [lsp garbage collector]
-  --  https://github.com/hinell/lsp-timeout.nvim
-  --  Stop inactive lsp servers until the buffer recover the focus.
+  --  garbage-day.nvim [lsp garbage collector]
+  --  https://github.com/zeioth/garbage-day.nvim
   {
-    "hinell/lsp-timeout.nvim",
-    dependencies={ "neovim/nvim-lspconfig" },
+    "zeioth/garbage-day.nvim",
     event = "User BaseFile",
-    init = function()
-      vim.g["lsp-timeout-config"] = {
-        stopTimeout = 1000*60*10, -- Stop unused lsp servers after 10 min.
-        startTimeout = 2000, -- Force server restart if nvim can't in 2s.
-        silent = true -- Notifications disabled
-      }
-    end
+    opts = {
+      aggressive_mode = false,
+      excluded_lsp_clients = {
+        "null-ls", "jdtls"
+      },
+      grace_period = (60*5),
+      wakeup_delay = 3000,
+      notifications = false,
+      retries = 3,
+      timeout = 1000,
+    }
   },
 
   --  mason [lsp package manager]
@@ -324,6 +354,10 @@ return {
             command = "beautysh",
             args = { "--indent-size=2", "$FILENAME" },
           },
+          -- TODO: Disable the next feature once this has been merged.
+          -- https://github.com/bash-lsp/bash-language-server/issues/933
+          nls.builtins.code_actions.shellcheck,
+          nls.builtins.diagnostics.shellcheck.with { diagnostics_format = "" },
         },
         on_attach = require("base.utils.lsp").on_attach,
       }
@@ -334,17 +368,10 @@ return {
   --  https://github.com/folke/neodev.nvim
   {
     "folke/neodev.nvim",
-    opts = {
-      override = function(root_dir, library)
-        for _, base_config in ipairs(base.supported_configs) do
-          if root_dir:match(base_config) then
-            library.plugins = true
-            break
-          end
-        end
-        vim.b.neodev_enabled = library.enabled
-      end,
-    },
+    opts = {},
+    config = function(_, opts)
+      require("neodev").setup(opts)
+    end,
   },
 
   --  AUTO COMPLETION --------------------------------------------------------

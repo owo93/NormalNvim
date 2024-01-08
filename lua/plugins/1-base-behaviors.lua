@@ -6,6 +6,7 @@
 --       -> project.nvim           [project search + auto cd]
 --       -> trim.nvim              [auto trim spaces]
 --       -> stickybuf.nvim         [lock special buffers]
+--       -> mini.bufremove         [smart bufdelete]
 --       -> nvim-window-picker     [select buffer with a letter]
 --       -> smart-splits           [move and resize buffers]
 --       -> better-scape.nvim      [esc]
@@ -38,6 +39,7 @@ return {
   --   This way you can install and use 'ranger' and its dependency 'pynvim'.
   {
     "kevinhwang91/rnvimr",
+    event = "VeryLazy",
     cmd = { "RnvimrToggle" },
     enabled = not windows,
     config = function(_, opts)
@@ -118,6 +120,14 @@ return {
     config = function() require("stickybuf").setup() end
   },
 
+  -- mini.bufremove [smart bufdelete]
+  -- https://github.com/echasnovski/mini.bufremove
+  -- Defines what tab to go on :bufdelete
+  {
+    "echasnovski/mini.bufremove",
+    event = "User BaseFile"
+  },
+
   -- nvim-window-picker  [select buffer with a letter]
   -- https://github.com/s1n7ax/nvim-window-picker
   -- Warning: currently no keybinding assigned for this plugin.
@@ -183,7 +193,7 @@ return {
     },
   },
 
-  -- Session management [session]
+  -- session-manager [session]
   -- https://github.com/Shatur/neovim-session-manager
   {
     "Shatur/neovim-session-manager",
@@ -202,13 +212,14 @@ return {
       session_manager.setup(opts)
 
       -- Auto save session
+      -- BUG: This feature will auto-close anything nofile before saving.
+      --      This include neotree, aerial, mergetool, among others.
+      --      Consider commenting the next block if this is important for you.
+      --
+      --      This won't be necessary once neovim fixes:
+      --      https://github.com/neovim/neovim/issues/12242
       vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
         callback = function ()
-          -- Don't save while there's any 'nofile' open.
-          for _, buf in ipairs(vim.api.nvim_list_bufs()) do
-            local buftype = vim.api.nvim_get_option_value("buftype", { buf = buf })
-            if buftype == 'nofile' then return end
-          end
           session_manager.save_current_session()
         end
       })
@@ -317,7 +328,7 @@ return {
     },
   },
 
-  -- neotree
+  -- [neotree]
   -- https://github.com/nvim-neo-tree/neo-tree.nvim
   {
     "nvim-neo-tree/neo-tree.nvim",
@@ -478,16 +489,6 @@ return {
             Y = "copy_selector",
             h = "parent_or_close",
             l = "child_or_open",
-            o = "open",
-            ["f"] = function()
-              vim.api.nvim_exec("Neotree focus filesystem left", true)
-            end,
-            ["b"] = function()
-              vim.api.nvim_exec("Neotree focus buffers left", true)
-            end,
-            ["g"] = function()
-              vim.api.nvim_exec("Neotree focus git_status left", true)
-            end,
           },
         },
         filesystem = {
@@ -587,7 +588,7 @@ return {
   },
 
   --  hop.nvim [go to word visually]
-  --  https://github.com/phaazon/hop.nvim
+  --  https://github.com/smoka7/hop.nvim
   {
     "smoka7/hop.nvim",
     cmd = { "HopWord" },
@@ -647,7 +648,7 @@ return {
       end
       return {
         -- Window mode
-        floating_window = is_enabled, -- Dislay it as floating window.
+        floating_window = is_enabled, -- Display it as floating window.
         hi_parameter = "IncSearch",   -- Color to highlight floating window.
         handler_opts = round_borders, -- Window style
 
@@ -655,7 +656,7 @@ return {
         hint_enable = false,          -- Display it as hint.
         hint_prefix = "👈 "
 
-        -- Aditionally, you can use <space>ui to toggle inlay hints.
+        -- Additionally, you can use <space>ui to toggle inlay hints.
       } end,
     config = function(_, opts) require'lsp_signature'.setup(opts) end
   },

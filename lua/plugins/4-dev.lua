@@ -17,7 +17,7 @@
 --       -> aerial.nvim                    [symbols tree]
 
 --       ## CODE DOCUMENTATION
---       -> dooku.nivm                     [html doc generator]
+--       -> dooku.nvim                     [html doc generator]
 --       -> markdown-preview.nvim          [markdown previewer]
 --       -> markmap.nvim                   [markdown mindmap]
 
@@ -237,7 +237,7 @@ return {
     config = function(_, opts) require("markmap").setup(opts) end,
   },
 
-  --  ARTIFICIAL INTELIGENCE  -------------------------------------------------
+  --  ARTIFICIAL INTELLIGENCE  -------------------------------------------------
   --  neural [chatgpt code generator]
   --  https://github.com/dense-analysis/neural
   {
@@ -306,16 +306,13 @@ return {
     cmd = { "CompilerOpen", "CompilerToggleResults" },
     opts = {
       -- Tasks are disposed 5 minutes after running to free resources.
-      -- If you need to close a task inmediatelly:
+      -- If you need to close a task immediately:
       -- press ENTER in the output menu on the task you wanna close.
       task_list = { -- this refers to the window that shows the result
         direction = "bottom",
         min_height = 25,
         max_height = 25,
         default_detail = 1,
-        bindings = {
-          ["q"] = function() vim.cmd("OverseerClose") end ,
-        }
       },
       -- component_aliases = { -- uncomment this to disable notifications
       --   -- Components included in default will apply to all tasks
@@ -368,8 +365,8 @@ return {
 
       -- Java
       -- Note: The java debugger jdtls is automatically spawned and configured
-      --       when a java file is opened. You can check it out here:
-      --       ../base/3-autocmds.lua
+      -- when a java file is opened. You can check it out here:
+      -- ../base/3-autocmds.lua
 
       -- Python
       dap.adapters.python = {
@@ -554,8 +551,8 @@ return {
         }
       }
       dap.configurations.javascript = dap.configurations.typescript
-      dap.configurations.typescriptreact = dap.configurations.typescript
       dap.configurations.javascriptreact = dap.configurations.typescript
+      dap.configurations.typescriptreact = dap.configurations.typescript
 
       -- Javascript / Typescript (chromium)
       -- If you prefer to use this adapter, comment the firefox one.
@@ -581,8 +578,22 @@ return {
       --  }
       -- }
       -- dap.configurations.javascript = dap.configurations.typescript
-      -- dap.configurations.typescriptreact = dap.configurations.typescript
       -- dap.configurations.javascriptreact = dap.configurations.typescript
+      -- dap.configurations.typescriptreact = dap.configurations.typescript
+
+      -- PHP
+      dap.adapters.php = {
+        type = 'executable',
+        command = vim.fn.stdpath("data") .. '/mason/bin/php-debug-adapter',
+      }
+      dap.configurations.php = {
+        {
+          type = 'php',
+          request = 'launch',
+          name = 'Listen for Xdebug',
+          port = 9000
+        }
+      }
 
       -- Shell
       dap.adapters.bashdb = {
@@ -703,21 +714,31 @@ return {
     "nvim-neotest/neotest",
     cmd = { "Neotest" },
     dependencies = {
-      "nvim-neotest/neotest-go",
-      "nvim-neotest/neotest-python",
-      "nvim-neotest/neotest-jest",
+      "sidlatau/neotest-dart",
       "Issafalcon/neotest-dotnet",
+      "jfpedroza/neotest-elixir",
+      "nvim-neotest/neotest-go",
+      "rcasia/neotest-java",
+      "nvim-neotest/neotest-jest",
+      "olimorris/neotest-phpunit",
+      "nvim-neotest/neotest-python",
       "rouge8/neotest-rust",
+      "lawrence-laz/neotest-zig",
     },
     opts = function()
       return {
         -- your neotest config here
         adapters = {
-          require "neotest-go",
-          require "neotest-python",
-          require "neotest-jest",
+          require "neotest-dart",
           require "neotest-dotnet",
+          require "neotest-elixir",
+          require "neotest-go",
+          require "neotest-java",
+          require "neotest-jest",
+          require "neotest-phpunit",
+          require "neotest-python",
           require "neotest-rust",
+          require "neotest-zig",
         },
       }
     end,
@@ -758,8 +779,8 @@ return {
       "CoverageClear",
       "CoverageSummary",
     },
+    dependencies = { "nvim-lua/plenary.nvim" },
     config = function() require("coverage").setup() end,
-    requires = { "nvim-lua/plenary.nvim" },
   },
 
   --  LANGUAGE IMPROVEMENTS ---------------------------------------------------
@@ -768,7 +789,7 @@ return {
   -- This plugin is necessary for using <C-]> (go to ctag).
   {
     "skywind3000/gutentags_plus",
-    event = "VeryLazy",
+    ft = { "c", "cpp" },
     dependencies = { "ludovicchabant/vim-gutentags" },
     init = function()
       vim.g.gutentags_plus_nomap = 1
@@ -784,7 +805,6 @@ return {
         end,
       })
     end,
-  }
-
+  },
 
 }
