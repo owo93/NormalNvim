@@ -63,7 +63,7 @@ local options = {
     mousescroll = "ver:1,hor:0", -- Disables hozirontal scroll in neovim.
     guicursor = "n:blinkon200,i-ci-ve:ver25", -- Enable cursor blink.
     autochdir = true, -- Use current file dir as working dir (See project.nvim).
-    scrolloff = 1000, -- Number of lines to leave before/after the cursor when scrolling. Setting a high value keep the cursor centered.
+    scrolloff = 5, -- Number of lines to leave before/after the cursor when scrolling. Setting a high value keep the cursor centered.
     sidescrolloff = 8, -- Same but for side scrolling.
     selection = "old", -- Don't select the newline symbol when using <End> on visual mode.
   },
@@ -78,7 +78,7 @@ local options = {
     cmp_enabled = true, -- Enable completion at start.
     codelens_enabled = true, -- Enable automatic codelens refreshing for lsp that support it.
     diagnostics_mode = 3, -- Set code linting (0=off, 1=only show in status line, 2=virtual text off, 3=all on).
-    icons_enabled = true, -- Enable icons in the UI (disable if no nerd font is available).
+    icons_enabled = true, -- Enable icons in the UI (disable if nuo nerd font is available).
     inlay_hints_enabled = false, -- Enable ayways show function parameter names.
     lsp_round_borders_enabled = true, -- Enable round borders for lsp hover and signatureHelp.
     lsp_signature_enabled = true, -- Enable automatically showing lsp help as you write function parameters.
