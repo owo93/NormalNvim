@@ -5,7 +5,6 @@
 --
 -- Be aware only things assigned inside a the return function will be updated.
 
-
 local M = {}
 
 local condition = require "base.utils.status.condition"
@@ -17,7 +16,6 @@ local extend_tbl = utils.extend_tbl
 local get_icon = utils.get_icon
 local luv = vim.uv or vim.loop -- TODO: REMOVE WHEN DROPPING SUPPORT FOR Neovim v0.9
 local is_available = utils.is_available
-
 
 
 --- A provider function for the fill string.
@@ -624,6 +622,41 @@ function M.lsp_client_names(opts)
       if #str > max_width then str = string.sub(str, 0, max_width) .. "…" end
     end
     return status_utils.stylize(str, opts)
+  end
+end
+
+--- A provider function for showing the current virtual environment name
+---@param opts table options passed to the stylize function
+---@return function # the function for outputting the virtual environment
+-- @usage local heirline_component = { provider = require("astroui.status").provider.virtual_env() }
+-- @see astroui.status.utils.stylize
+function M.virtual_env(opts)
+  opts = extend_tbl(
+    {
+      env_names = { "env", ".env", "venv", ".venv" },
+      conda = { enabled = true, ignore_base = true },
+    },
+    opts
+  )
+  return function()
+    local conda = vim.env.CONDA_DEFAULT_ENV
+    local venv = vim.env.VIRTUAL_ENV
+    local env_str
+    if venv then
+      local path = vim.fn.split(venv, "/")
+      env_str = path[#path]
+      if #path > 1 and vim.tbl_contains(opts.env_names, env_str) then
+        env_str = path[#path - 1]
+      end
+    elseif opts.conda.enabled and conda then
+      if conda ~= "base" or not opts.conda.ignore_base then env_str = conda end
+    end
+    if env_str then
+      return status_utils.stylize(
+        opts.format and opts.format:format(env_str) or env_str,
+        opts
+      )
+    end
   end
 end
 

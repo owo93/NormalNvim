@@ -23,7 +23,7 @@ local setup_handlers = {
   function(server, opts) require("lspconfig")[server].setup(opts) end,
 }
 
-base.lsp = { progress = {} }             -- globally accesible
+base.lsp = { progress = {} }             -- globally accessible
 M.diagnostics = { [0] = {}, {}, {}, {} } -- For diagnostics toggle in ./ui.lua
 
 -- LSP settings
@@ -61,7 +61,7 @@ M.setup_diagnostics = function(signs)
   vim.diagnostic.config(M.diagnostics[vim.g.diagnostics_mode])
 end
 
--- Formating settings
+-- Formatting settings
 M.formatting = { format_on_save = { enabled = true }, disabled = {} }
 if type(M.formatting.format_on_save) == "boolean" then
   M.formatting.format_on_save = { enabled = M.formatting.format_on_save }
@@ -141,7 +141,7 @@ M.on_attach = function(client, bufnr)
     lsp_mappings.n["<leader>li"] = { "<cmd>LspInfo<cr>", desc = "LSP information" }
   end
 
-  if is_available "null-ls.nvim" then
+  if is_available "none-ls.nvim" then
     lsp_mappings.n["<leader>lI"] = { "<cmd>NullLsInfo<cr>", desc = "Null-ls information" }
   end
 
@@ -354,8 +354,6 @@ M.on_attach = function(client, bufnr)
     end
   end
 
-
-
   if is_available "telescope.nvim" then -- setup telescope mappings if available
     if lsp_mappings.n.gd then lsp_mappings.n.gd[1] = function() require("telescope.builtin").lsp_definitions() end end
     if lsp_mappings.n.gI then
@@ -444,17 +442,10 @@ function M.config(server_name)
   end
   if server_name == "lua_ls" then -- by default initialize neodev and disable third party checking
     pcall(require, "neodev")
-    lsp_opts.before_init = function(param, config)
-      if vim.b.neodev_enabled then
-        for _, base_config in ipairs(base.supported_configs) do
-          if param.rootPath:match(base_config) then
-            table.insert(config.settings.Lua.workspace.library, base.install.home .. "/lua")
-            break
-          end
-        end
-      end
-    end
     lsp_opts.settings = { Lua = { workspace = { checkThirdParty = false } } }
+  end
+  if server_name == "bashls" then -- by default use mason shellcheck path
+    lsp_opts.settings = { bashIde = { shellcheckPath = vim.fn.stdpath "data" .. "/mason/bin/shellcheck" } }
   end
   local opts = lsp_opts
   local old_on_attach = server.on_attach
