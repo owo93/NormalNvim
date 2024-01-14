@@ -35,7 +35,7 @@ return {
       dim_inactive = false,
       transparent = true,
       styles = {
-        sidebars = "transparent",
+        -- sidebars = "transparent",
         comments = { italic = true },
         keywords = { italic = true },
       },
@@ -58,7 +58,7 @@ return {
     lazy = false,
     priority = 1000,
     opts  = {
-      transparent = true,
+      transparent = false,
       comments = { italic = true },
       keywords = { italic = true },
     },
