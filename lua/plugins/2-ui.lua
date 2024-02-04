@@ -21,8 +21,8 @@
 --       -> which-key                   [on-screen keybinding]
 
 local utils = require "base.utils"
-local windows = vim.fn.has('win32') == 1             -- true if on windows
-local android = vim.fn.isdirectory('/system') == 1   -- true if on android
+local windows = vim.fn.has('win32') == 1           -- true if on windows
+local android = vim.fn.isdirectory('/system') == 1 -- true if on android
 
 return {
 
@@ -55,16 +55,30 @@ return {
 
   {
     "craftzdog/solarized-osaka.nvim",
-    lazy = false,
+    lazy     = true,
     priority = 1000,
-    opts  = {
+    opts     = {
       transparent = false,
       comments = { italic = true },
       keywords = { italic = true },
     },
 
   },
-  {"myagko/nymph.nvim"},
+
+  { "myagko/nymph.nvim" },
+
+  {
+    'projekt0n/github-nvim-theme',
+    lazy = true,
+    priority = 1000,
+    config = function()
+      require('github-theme').setup({
+        options = {
+          transparent = true,
+        },
+      })
+    end,
+  },
 
   --  alpha-nvim [greeter]
   --  https://github.com/goolord/alpha-nvim
@@ -133,22 +147,24 @@ return {
         [[ \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
       }
 
-      if android then dashboard.section.header.val = {
-        [[         __                ]],
-        [[ __  __ /\_\    ___ ___    ]],
-        [[/\ \/\ \\/\ \ /' __` __`\  ]],
-        [[\ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-        [[ \ \___/  \ \_\ \_\ \_\ \_\]],
-        [[  \/__/    \/_/\/_/\/_/\/_/]],
-       }
-      else dashboard.section.header.val = {
-        [[                __                ]],
-        [[  ___   __  __ /\_\    ___ ___    ]],
-        [[/' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
-        [[/\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
-        [[\ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
-        [[ \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
-      }
+      if android then
+        dashboard.section.header.val = {
+          [[         __                ]],
+          [[ __  __ /\_\    ___ ___    ]],
+          [[/\ \/\ \\/\ \ /' __` __`\  ]],
+          [[\ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+          [[ \ \___/  \ \_\ \_\ \_\ \_\]],
+          [[  \/__/    \/_/\/_/\/_/\/_/]],
+        }
+      else
+        dashboard.section.header.val = {
+          [[                __                ]],
+          [[  ___   __  __ /\_\    ___ ___    ]],
+          [[/' _ `\/\ \/\ \\/\ \ /' __` __`\  ]],
+          [[/\ \/\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+          [[\ \_\ \_\ \___/  \ \_\ \_\ \_\ \_\]],
+          [[ \/_/\/_/\/__/    \/_/\/_/\/_/\/_/]],
+        }
       end
 
       dashboard.section.header.opts.hl = "DashboardHeader"
@@ -258,10 +274,10 @@ return {
         desc = "Disable indentscope for certain filetypes",
         callback = function()
           if vim.bo.filetype == "alpha"
-            or vim.bo.filetype == "neo-tree"
-            or vim.bo.filetype == "mason"
-            or vim.bo.filetype == "notify"
-            or vim.bo.filetype == "leetcode.nvim"
+              or vim.bo.filetype == "neo-tree"
+              or vim.bo.filetype == "mason"
+              or vim.bo.filetype == "notify"
+              or vim.bo.filetype == "leetcode.nvim"
           then
             vim.b.miniindentscope_disable = true
           end
@@ -281,10 +297,10 @@ return {
         opts = {
           disable_winbar_cb = function(args)
             return not require("base.utils.buffer").is_valid(args.buf)
-              or status.condition.buffer_matches({
-                buftype = { "terminal", "prompt", "nofile", "help", "quickfix" },
-                filetype = { "NvimTree", "neo%-tree", "dashboard", "Outline", "aerial" },
-              }, args.buf)
+                or status.condition.buffer_matches({
+                  buftype = { "terminal", "prompt", "nofile", "help", "quickfix" },
+                  filetype = { "NvimTree", "neo%-tree", "dashboard", "Outline", "aerial" },
+                }, args.buf)
           end,
         },
         statusline = { -- statusline
@@ -322,13 +338,13 @@ return {
           status.component.breadcrumbs { hl = status.hl.get_attributes("winbar", true) },
         },
         tabline = { -- bufferline
-          { -- file tree padding
+          {         -- file tree padding
             condition = function(self)
               self.winid = vim.api.nvim_tabpage_list_wins(0)[1]
               return status.condition.buffer_matches(
                 {
                   filetype = {
-                  "aerial", "dapui_.", "dap-repl", "neo%-tree", "NvimTree", "edgy"
+                    "aerial", "dapui_.", "dap-repl", "neo%-tree", "NvimTree", "edgy"
                   }
                 },
                 vim.api.nvim_win_get_buf(self.winid)
@@ -338,8 +354,8 @@ return {
             hl = { bg = "tabline_bg" },
           },
           status.heirline.make_buflist(status.component.tabline_file_info()), -- component for each buffer tab
-          status.component.fill { hl = { bg = "tabline_bg" } }, -- fill the rest of the tabline with background color
-          { -- tab list
+          status.component.fill { hl = { bg = "tabline_bg" } },               -- fill the rest of the tabline with background color
+          {                                                                   -- tab list
             condition = function()
               -- only show tabs if there are more than one
               return #vim.api.nvim_list_tabpages() >= 2
@@ -691,7 +707,7 @@ return {
       )
     end,
     opts = {
-      input = { default_prompt = "➤ "},
+      input = { default_prompt = "➤ " },
       select = { backend = { "telescope", "builtin" } },
     },
   },
@@ -714,14 +730,14 @@ return {
         presets = { bottom_search = true }, -- The kind of popup used for /
         cmdline = {
           view = "cmdline",                 -- The kind of popup used for :
-          format= {
-            cmdline =     { conceal = enable_conceal },
+          format = {
+            cmdline = { conceal = enable_conceal },
             search_down = { conceal = enable_conceal },
-            search_up =   { conceal = enable_conceal },
-            filter =      { conceal = enable_conceal },
-            lua =         { conceal = enable_conceal },
-            help =        { conceal = enable_conceal },
-            input =       { conceal = enable_conceal },
+            search_up = { conceal = enable_conceal },
+            filter = { conceal = enable_conceal },
+            lua = { conceal = enable_conceal },
+            help = { conceal = enable_conceal },
+            input = { conceal = enable_conceal },
           }
         },
 

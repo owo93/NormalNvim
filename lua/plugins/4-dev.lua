@@ -43,6 +43,9 @@
 local get_icon = require("base.utils").get_icon
 local windows = vim.fn.has('win32') == 1 -- true if on windows
 return {
+  {
+    "wuelnerdotexe/vim-astro"
+  },
   --  COMMENTS ----------------------------------------------------------------
   --  Advanced comment features [comment with a key]
   --  https://github.com/numToStr/Comment.nvim

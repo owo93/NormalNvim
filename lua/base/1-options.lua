@@ -21,7 +21,7 @@ local options = {
     cmdheight = 0, -- hide command line unless needed.
     completeopt = { "menu", "menuone", "noselect" }, -- Options for insert mode completion.
     copyindent = true, -- Copy the previous indentation on autoindenting.
-    cursorline = true, -- Highlight the text line of the cursor.
+    cursorline =  false,-- Highlight the text line of the cursor.
     expandtab = true, -- Enable the use of space in tab.
     fileencoding = "utf-8", -- File content encoding for the buffer.
     fillchars = { eob = " " }, -- Disable `~` on nonexistent lines.
@@ -39,7 +39,7 @@ local options = {
     relativenumber = false, -- Show relative numberline.
     shiftwidth = 2, -- Number of space inserted for indentation.
     showmode = false, -- Disable showing modes in command line.
-    showtabline = 2, -- always display tabline.
+    showtabline = 0, -- always display tabline.
     signcolumn = "yes", -- Always show the sign column.
     smartcase = true, -- Case sensitivie searching.
     smartindent = false, -- Smarter autoindentation.
