@@ -29,7 +29,7 @@ return {
   -- tokyonight [theme]
   -- https://github.com/folke/tokyonight.nvim
   {
-    "Zeioth/tokyonight.nvim",
+    "folke/tokyonight.nvim",
     event = "User LoadColorSchemes",
     opts = {
       dim_inactive = false,
@@ -55,6 +55,7 @@ return {
 
   {
     "craftzdog/solarized-osaka.nvim",
+    event    = "User LoadColorSchemes",
     lazy     = true,
     priority = 1000,
     opts     = {
@@ -64,11 +65,21 @@ return {
     },
 
   },
-
-  { "myagko/nymph.nvim" },
-
+  {
+    "2nthony/vitesse.nvim",
+    event = "User LoadColorSchemes",
+    dependencies = {
+      "tjdevries/colorbuddy.nvim"
+    },
+    config = function()
+      require('vitesse').setup({
+        transparent_background = true,
+      })
+    end,
+  },
   {
     'projekt0n/github-nvim-theme',
+    event = "User LoadColorSchemes",
     lazy = true,
     priority = 1000,
     config = function()
@@ -314,7 +325,7 @@ return {
           status.component.cmd_info(),
           status.component.fill(),
           status.component.lsp(),
-          --status.component.treesitter(),    -- uncomment to enable
+          status.component.treesitter(), -- uncomment to enable
           status.component.compiler_state(),
           --status.component.file_encoding(), -- uncomment to enable
           status.component.nav(),
