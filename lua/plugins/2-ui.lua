@@ -739,11 +739,12 @@ return {
     "folke/noice.nvim",
     event = "VeryLazy",
     opts = function()
-      local enable_conceal = false          -- Hide command text if true
+      local enable_conceal = true           -- Hide command text if true
       return {
         presets = { bottom_search = true }, -- The kind of popup used for /
         cmdline = {
-          view = "cmdline",                 -- The kind of popup used for :
+          enabled = true,
+          view = "cmdline", -- The kind of popup used for :
           format = {
             cmdline = { conceal = enable_conceal },
             search_down = { conceal = enable_conceal },
