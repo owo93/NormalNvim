@@ -205,15 +205,15 @@ return {
       local utils = require "base.utils"
       local get_icon = utils.get_icon
       local signs = {
-        { name = "DiagnosticSignError", text = get_icon "DiagnosticError", texthl = "DiagnosticSignError" },
-        { name = "DiagnosticSignWarn", text = get_icon "DiagnosticWarn", texthl = "DiagnosticSignWarn" },
-        { name = "DiagnosticSignHint", text = get_icon "DiagnosticHint", texthl = "DiagnosticSignHint" },
-        { name = "DiagnosticSignInfo", text = get_icon "DiagnosticInfo", texthl = "DiagnosticSignInfo" },
-        { name = "DapStopped", text = get_icon "DapStopped", texthl = "DiagnosticWarn" },
-        { name = "DapBreakpoint", text = get_icon "DapBreakpoint", texthl = "DiagnosticInfo" },
-        { name = "DapBreakpointRejected", text = get_icon "DapBreakpointRejected", texthl = "DiagnosticError" },
+        { name = "DiagnosticSignError",    text = get_icon "DiagnosticError",        texthl = "DiagnosticSignError" },
+        { name = "DiagnosticSignWarn",     text = get_icon "DiagnosticWarn",         texthl = "DiagnosticSignWarn" },
+        { name = "DiagnosticSignHint",     text = get_icon "DiagnosticHint",         texthl = "DiagnosticSignHint" },
+        { name = "DiagnosticSignInfo",     text = get_icon "DiagnosticInfo",         texthl = "DiagnosticSignInfo" },
+        { name = "DapStopped",             text = get_icon "DapStopped",             texthl = "DiagnosticWarn" },
+        { name = "DapBreakpoint",          text = get_icon "DapBreakpoint",          texthl = "DiagnosticInfo" },
+        { name = "DapBreakpointRejected",  text = get_icon "DapBreakpointRejected",  texthl = "DiagnosticError" },
         { name = "DapBreakpointCondition", text = get_icon "DapBreakpointCondition", texthl = "DiagnosticInfo" },
-        { name = "DapLogPoint", text = get_icon "DapLogPoint", texthl = "DiagnosticInfo" },
+        { name = "DapLogPoint",            text = get_icon "DapLogPoint",            texthl = "DiagnosticInfo" },
       }
 
       for _, sign in ipairs(signs) do
@@ -236,9 +236,10 @@ return {
       end
 
       if vim.g.lsp_round_borders_enabled then
-        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", silent = true })
+        vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover,
+          { border = "rounded", silent = true })
         vim.lsp.handlers["textDocument/signatureHelp"] =
-          vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", silent = true })
+            vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded", silent = true })
       end
       local setup_servers = function()
         vim.api.nvim_exec_autocmds("FileType", {})
@@ -267,7 +268,7 @@ return {
       excluded_lsp_clients = {
         "null-ls", "jdtls"
       },
-      grace_period = (60*5),
+      grace_period = (60 * 5),
       wakeup_delay = 3000,
       notifications = false,
       retries = 3,
@@ -290,6 +291,9 @@ return {
     },
     opts = {
       ui = {
+        border = "rounded",
+        width = 0.5,
+        height = 0.5,
         icons = {
           package_installed = "✓",
           package_uninstalled = "✗",
@@ -310,7 +314,7 @@ return {
           return _.sort_by(
             _.identity,
             _.filter(_.starts_with(arg_lead), require("mason-registry").get_installed_package_names())
-           )
+          )
         end,
       })
       cmd(
@@ -405,10 +409,10 @@ return {
       return {
         enabled = function()
           local dap_prompt = utils.is_available "cmp-dap" -- add interoperability with cmp-dap
-            and vim.tbl_contains(
-              { "dap-repl", "dapui_watches", "dapui_hover" },
-              vim.api.nvim_get_option_value("filetype", { buf = 0 })
-            )
+              and vim.tbl_contains(
+                { "dap-repl", "dapui_watches", "dapui_hover" },
+                vim.api.nvim_get_option_value("filetype", { buf = 0 })
+              )
           if vim.api.nvim_get_option_value("buftype", { buf = 0 }) == "prompt" and not dap_prompt then return false end
           return vim.g.cmp_enabled
         end,
@@ -510,9 +514,9 @@ return {
         },
         sources = cmp.config.sources {
           { name = "nvim_lsp", priority = 1000 },
-          { name = "luasnip", priority = 750 },
-          { name = "buffer", priority = 500 },
-          { name = "path", priority = 250 },
+          { name = "luasnip",  priority = 750 },
+          { name = "buffer",   priority = 500 },
+          { name = "path",     priority = 250 },
         },
       }
     end,
