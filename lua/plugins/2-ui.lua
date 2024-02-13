@@ -268,9 +268,13 @@ return {
         vim.wo[win].spell = false
       end,
     },
-    config = function(_, opts)
+    config = function(_)
       local notify = require "notify"
-      notify.setup(opts)
+      notify.setup({
+        stages = "slide",
+        render = "simple",
+        fps = 120,
+      })
       vim.notify = notify
     end,
   },
