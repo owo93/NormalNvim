@@ -4,6 +4,9 @@
 --    Sections:
 --       -> tokyonight                  [theme]
 --       -> astrotheme                  [theme]
+--       -> solarized-osaka             [theme]
+--       -> vitesse                     [theme]
+--       -> night-owl                   [theme]
 --       -> alpha-nvim                  [greeter]
 --       -> nvim-notify                 [notifications]
 --       -> mini.indentscope            [guides]
@@ -53,6 +56,8 @@ return {
     },
   },
 
+  -- solarized-osaka [theme]
+  -- https://github.com/craftzdog/solarized-osaka.nvim
   {
     "craftzdog/solarized-osaka.nvim",
     event    = "User LoadColorSchemes",
@@ -65,6 +70,9 @@ return {
     },
 
   },
+
+  -- vitesse [theme]
+  -- https://github.com/2nthony/vitesse.nvim
   {
     "2nthony/vitesse.nvim",
     event = "User LoadColorSchemes",
@@ -80,18 +88,15 @@ return {
       })
     end,
   },
+
+  -- night-owl [theme]
+  -- https://github.com/oxfist/night-owl.nvim
   {
-    'projekt0n/github-nvim-theme',
+    "oxfist/night-owl.nvim",
     event = "User LoadColorSchemes",
-    lazy = true,
-    priority = 1000,
-    config = function()
-      require('github-theme').setup({
-        options = {
-          transparent = true,
-        },
-      })
-    end,
+    -- config = function()
+    --
+    -- end,
   },
 
   --  alpha-nvim [greeter]
