@@ -825,6 +825,7 @@ return {
         String = "󰀬",
         TypeParameter = "󰊄",
         Unit = "",
+        Copilot = "",
       },
       menu = {},
     },

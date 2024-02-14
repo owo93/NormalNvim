@@ -60,7 +60,7 @@ local get_icon = utils.get_icon
 local is_available = utils.is_available
 local ui = require "base.utils.ui"
 local maps = require("base.utils").empty_map_table()
-local android = vim.fn.isdirectory('/system') == 1   -- true if on android
+local android = vim.fn.isdirectory('/system') == 1 -- true if on android
 
 -- -------------------------------------------------------------------------
 --
@@ -107,13 +107,13 @@ maps.n["<leader>q"] = {
   function() require("base.utils").confirm_quit() end,
   desc = "Quit",
 }
-maps.n["<Tab>"] = {
-  "<Tab>",
-  noremap = true,
-  silent = true,
-  expr = false,
-  desc = "FIX: Prevent TAB from behaving like <C-i>, as they share the same internal code",
-}
+-- maps.n["<Tab>"] = {
+--   "<Tab>",
+--   noremap = true,
+--   silent = true,
+--   expr = false,
+--   desc = "FIX: Prevent TAB from behaving like <C-i>, as they share the same internal code",
+-- }
 
 -- clipboard ---------------------------------------------------------------
 
@@ -498,19 +498,27 @@ maps.n["<S-PageUp>"] = {
 -- cmdline autocompletion ---------------------------------------------------
 maps.c["<Up>"] = {
   function() return vim.fn.wildmenumode() == 1 and "<Left>" or "<Up>" end,
-  noremap = true, expr = true, desc = "Wildmenu fix for neovim bug #9953",
+  noremap = true,
+  expr = true,
+  desc = "Wildmenu fix for neovim bug #9953",
 }
 maps.c["<Down>"] = {
   function() return vim.fn.wildmenumode() == 1 and "<Right>" or "<Down>" end,
-  noremap = true, expr = true, desc = "Wildmenu fix for neovim bug #9953",
+  noremap = true,
+  expr = true,
+  desc = "Wildmenu fix for neovim bug #9953",
 }
 maps.c["<Left>"] = {
   function() return vim.fn.wildmenumode() == 1 and "<Up>" or "<Left>" end,
-  noremap = true, expr = true, desc = "Wildmenu fix for neovim bug #9953",
+  noremap = true,
+  expr = true,
+  desc = "Wildmenu fix for neovim bug #9953",
 }
 maps.c["<Right>"] = {
   function() return vim.fn.wildmenumode() == 1 and "<Down>" or "<Right>" end,
-  noremap = true, expr = true, desc = "Wildmenu fix for neovim bug #9953",
+  noremap = true,
+  expr = true,
+  desc = "Wildmenu fix for neovim bug #9953",
 }
 
 -- special cases ------------------------------------------------------------
@@ -518,7 +526,7 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   desc = "Make q close help, man, quickfix, dap floats",
   callback = function(args)
     local buftype =
-      vim.api.nvim_get_option_value("buftype", { buf = args.buf })
+        vim.api.nvim_get_option_value("buftype", { buf = args.buf })
     if vim.tbl_contains({ "help", "nofile", "quickfix" }, buftype) then
       vim.keymap.set(
         "n", "q", "<cmd>close<cr>",
@@ -793,12 +801,14 @@ if is_available "telescope.nvim" then
   maps.n["<leader>gc"] = {
     function()
       require("telescope.builtin").git_commits()
-    end, desc = "Git commits (repository)"
+    end,
+    desc = "Git commits (repository)"
   }
   maps.n["<leader>gC"] = {
     function()
       require("telescope.builtin").git_bcommits()
-    end, desc = "Git commits (current file)"
+    end,
+    desc = "Git commits (current file)"
   }
   maps.n["<leader>gt"] = {
     function() require("telescope.builtin").git_status() end,
@@ -1012,7 +1022,6 @@ if is_available "telescope.nvim" then
       desc = "compiler resume",
     }
   end
-
 end
 
 -- toggleterm.nvim ----------------------------------------------------------
@@ -1053,11 +1062,14 @@ if is_available "nvim-dap" then
   maps.x["<leader>d"] = icons.d
 
   -- F keys
-  maps.n["<F5>"] = { function()
-    require("dap").continue()
-  end, desc = "Debugger: Start" }
+  maps.n["<F5>"] = {
+    function()
+      require("dap").continue()
+    end,
+    desc = "Debugger: Start"
+  }
   maps.n["<S-F5>"] =
-    { function() require("dap").terminate() end, desc = "Debugger: Stop" }
+  { function() require("dap").terminate() end, desc = "Debugger: Stop" }
   maps.n["<C-F5>"] = {
     function() require("dap").restart_frame() end, desc = "Debugger: Restart" }
   maps.n["<F9>"] = {
@@ -1071,13 +1083,13 @@ if is_available "nvim-dap" then
     desc = "Debugger: Conditional Breakpoint",
   }
   maps.n["<F10>"] =
-    { function() require("dap").step_over() end, desc = "Debugger: Step Over" }
+  { function() require("dap").step_over() end, desc = "Debugger: Step Over" }
   maps.n["<S-F10>"] =
-    { function() require("dap").step_back() end, desc = "Debugger: Step Back" }
+  { function() require("dap").step_back() end, desc = "Debugger: Step Back" }
   maps.n["<F11>"] =
-    { function() require("dap").step_into() end, desc = "Debugger: Step Into" }
+  { function() require("dap").step_into() end, desc = "Debugger: Step Into" }
   maps.n["<S-11>"] =
-    { function() require("dap").step_out() end, desc = "Debugger: Step Out" }
+  { function() require("dap").step_out() end, desc = "Debugger: Step Out" }
 
   -- Space + d
   maps.n["<leader>db"] = {
@@ -1089,7 +1101,7 @@ if is_available "nvim-dap" then
     desc = "Clear Breakpoints",
   }
   maps.n["<leader>dc"] =
-    { function() require("dap").continue() end, desc = "Start/Continue (F5)" }
+  { function() require("dap").continue() end, desc = "Start/Continue (F5)" }
   maps.n["<leader>dC"] = {
     function()
       vim.ui.input({ prompt = "Condition: " }, function(condition)
@@ -1099,27 +1111,27 @@ if is_available "nvim-dap" then
     desc = "Conditional Breakpoint (S-F9)",
   }
   maps.n["<leader>do"] =
-    { function() require("dap").step_over() end, desc = "Step Over (F10)" }
+  { function() require("dap").step_over() end, desc = "Step Over (F10)" }
   maps.n["<leader>do"] =
-    { function() require("dap").step_back() end, desc = "Step Back (S-F10)" }
+  { function() require("dap").step_back() end, desc = "Step Back (S-F10)" }
   maps.n["<leader>db"] =
-    { function() require("dap").step_into() end, desc = "Step Into (F11)" }
+  { function() require("dap").step_into() end, desc = "Step Into (F11)" }
   maps.n["<leader>dO"] =
-    { function() require("dap").step_out() end, desc = "Step Out (S-F11)" }
+  { function() require("dap").step_out() end, desc = "Step Out (S-F11)" }
   maps.n["<leader>dq"] =
-    { function() require("dap").close() end, desc = "Close Session" }
+  { function() require("dap").close() end, desc = "Close Session" }
   maps.n["<leader>dQ"] = {
     function() require("dap").terminate() end,
     desc = "Terminate Session (S-F5)",
   }
   maps.n["<leader>dp"] =
-    { function() require("dap").pause() end, desc = "Pause" }
+  { function() require("dap").pause() end, desc = "Pause" }
   maps.n["<leader>dr"] =
-    { function() require("dap").restart_frame() end, desc = "Restart (C-F5)" }
+  { function() require("dap").restart_frame() end, desc = "Restart (C-F5)" }
   maps.n["<leader>dR"] =
-    { function() require("dap").repl.toggle() end, desc = "REPL" }
+  { function() require("dap").repl.toggle() end, desc = "REPL" }
   maps.n["<leader>ds"] =
-    { function() require("dap").run_to_cursor() end, desc = "Run To Cursor" }
+  { function() require("dap").run_to_cursor() end, desc = "Run To Cursor" }
 
   if is_available "nvim-dap-ui" then
     maps.n["<leader>dE"] = {
@@ -1131,9 +1143,9 @@ if is_available "nvim-dap" then
       desc = "Evaluate Input",
     }
     maps.x["<leader>dE"] =
-      { function() require("dapui").eval() end, desc = "Evaluate Input" }
+    { function() require("dapui").eval() end, desc = "Evaluate Input" }
     maps.n["<leader>du"] =
-      { function() require("dapui").toggle() end, desc = "Debugger UI" }
+    { function() require("dapui").toggle() end, desc = "Debugger UI" }
     maps.n["<leader>dh"] = {
       function() require("dap.ui.widgets").hover() end,
       desc = "Debugger Hover",
@@ -1221,11 +1233,15 @@ if is_available "nvim-ufo" then
     desc = "Peek fold",
   }
   maps.n["zn"] =
-    { function() require("ufo").openFoldsExceptKinds({'comment'}) end,
-    desc = "Fold comments" }
+  {
+    function() require("ufo").openFoldsExceptKinds({ 'comment' }) end,
+    desc = "Fold comments"
+  }
   maps.n["zN"] =
-    { function() require("ufo").openFoldsExceptKinds({'region'}) end,
-    desc = "Fold region" }
+  {
+    function() require("ufo").openFoldsExceptKinds({ 'region' }) end,
+    desc = "Fold region"
+  }
 end
 
 -- code docmentation [docs] -------------------------------------------------
@@ -1245,8 +1261,11 @@ if is_available "markdown-preview.nivm" or is_available "markmap.nvim" or is_ava
   if is_available "markmap.nvim" then
     maps.n["<leader>Dm"] = {
       function()
-        if android then vim.cmd "MarkmapWatch"
-        else vim.cmd "MarkmapOpen"end
+        if android then
+          vim.cmd "MarkmapWatch"
+        else
+          vim.cmd "MarkmapOpen"
+        end
       end,
       desc = "Markmap",
     }
@@ -1261,7 +1280,7 @@ if is_available "markdown-preview.nivm" or is_available "markmap.nvim" or is_ava
 end
 
 -- [neural] -----------------------------------------------------------------
-if is_available "neural" or is_available "copilot" then
+if is_available "copilot" or is_available "neural" then
   maps.n["<leader>a"] = {
     function() require("neural").prompt() end,
     desc = "Ask chatgpt",
@@ -1283,7 +1302,7 @@ if is_available "hop.nvim" then
   maps.x["<C-m>"] = { -- The terminal undersand C-m and ENTER as the same key.
     function()
       require "hop"
-      vim.cmd ("silent! HopWord")
+      vim.cmd("silent! HopWord")
     end,
     desc = "Hop to word",
   }

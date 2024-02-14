@@ -1,4 +1,4 @@
--- Dev
+-- OPENAPI_API_KEYDev
 -- Things you actively use for coding.
 
 --    Sections:
@@ -57,11 +57,11 @@ return {
     },
     opts = function()
       local commentstring_avail, commentstring =
-        pcall(require, "ts_context_commentstring.integrations.comment_nvim")
+          pcall(require, "ts_context_commentstring.integrations.comment_nvim")
       return commentstring_avail
           and commentstring
           and { pre_hook = commentstring.create_pre_hook() }
-        or {}
+          or {}
     end,
   },
 
@@ -241,8 +241,8 @@ return {
   },
 
   --  ARTIFICIAL INTELLIGENCE  -------------------------------------------------
-  --  neural [chatgpt code generator]
-  --  https://github.com/dense-analysis/neural
+  -- neural [chatgpt code generator]
+  -- https://github.com/dense-analysis/neural
   {
     "dense-analysis/neural",
     cmd = { "Neural" },
@@ -250,7 +250,7 @@ return {
       require("neural").setup {
         source = {
           openai = {
-            api_key = vim.env.OPENAI_API_KEY,
+            api_key = vim.env.OPENAPI_API_KEY,
           },
         },
         ui = {
@@ -259,22 +259,30 @@ return {
       }
     end,
   },
-
+  --
   --  copilot [github code suggestions]
-  --  https://github.com/github/copilot.vim
+  --  https://github.com/zbirenbaum/copilot.lua
   --  As alternative to chatgpt, you can use copilot uncommenting this.
   --  Then you must run :Copilot setup
-  -- {
-  --   "github/copilot.vim",
-  --   event = "User BaseFile"
-  -- },
+  {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    event = "InsertEnter",
+    config = function()
+      require('copilot').setup({})
+    end,
+  },
   -- copilot-cmp
   -- https://github.com/zbirenbaum/copilot-cmp
-  -- {
-  --   "zbirenbaum/copilot-cmp",
-  --   opts = { suggesion = { enabled = false }, panel = { enabled = false } },
-  --   config = function (_, opts) require("copilot_cmp").setup(opts) end
-  -- },
+  {
+    "zbirenbaum/copilot-cmp",
+    after = {
+      "cmp",
+      "copilot.lua",
+    },
+    opts = { suggesion = { enabled = false }, panel = { enabled = false } },
+    config = function(_, opts) require("copilot_cmp").setup(opts) end
+  },
 
   -- [guess-indent]
   -- https://github.com/NMAC427/guess-indent.nvim
@@ -346,8 +354,8 @@ return {
       -- C#
       dap.adapters.coreclr = {
         type = 'executable',
-        command = vim.fn.stdpath('data')..'/mason/bin/netcoredbg',
-        args = {'--interpreter=vscode'}
+        command = vim.fn.stdpath('data') .. '/mason/bin/netcoredbg',
+        args = { '--interpreter=vscode' }
       }
       dap.configurations.cs = {
         {
@@ -355,7 +363,7 @@ return {
           name = "launch - netcoredbg",
           request = "launch",
           program = function() -- Ask the user what executable wants to debug
-              return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Program.exe', 'file')
+            return vim.fn.input('Path to dll: ', vim.fn.getcwd() .. '/bin/Program.exe', 'file')
           end,
         },
       }
@@ -373,9 +381,9 @@ return {
 
       -- Python
       dap.adapters.python = {
-          type = 'executable',
-          command = vim.fn.stdpath('data')..'/mason/packages/debugpy/venv/bin/python',
-          args = { '-m', 'debugpy.adapter' },
+        type = 'executable',
+        command = vim.fn.stdpath('data') .. '/mason/packages/debugpy/venv/bin/python',
+        args = { '-m', 'debugpy.adapter' },
       }
       dap.configurations.python = {
         {
@@ -395,7 +403,7 @@ return {
           type = 'nlua',
           request = 'attach',
           name = "Attach to running Neovim instance",
-          program = function() pcall(require"osv".launch({port = 8086})) end,
+          program = function() pcall(require "osv".launch({ port = 8086 })) end,
         }
       }
 
@@ -404,9 +412,9 @@ return {
         type = 'server',
         port = "${port}",
         executable = {
-          command = vim.fn.stdpath('data')..'/mason/bin/codelldb',
-          args = {"--port", "${port}"},
-           detached = function() if windows then return false else return true end end,
+          command = vim.fn.stdpath('data') .. '/mason/bin/codelldb',
+          args = { "--port", "${port}" },
+          detached = function() if windows then return false else return true end end,
         }
       }
       dap.configurations.c = {
@@ -468,8 +476,8 @@ return {
         type = 'server',
         port = '${port}',
         executable = {
-          command = vim.fn.stdpath('data')..'/mason/packages/delve/dlv',
-          args = {'dap', '-l', '127.0.0.1:${port}'},
+          command = vim.fn.stdpath('data') .. '/mason/packages/delve/dlv',
+          args = { 'dap', '-l', '127.0.0.1:${port}' },
         }
       }
       dap.configurations.go = {
@@ -491,13 +499,13 @@ return {
       -- Dart / Flutter
       dap.adapters.dart = {
         type = 'executable',
-        command = vim.fn.stdpath('data')..'/mason/bin/dart-debug-adapter',
-        args = {'dart'}
+        command = vim.fn.stdpath('data') .. '/mason/bin/dart-debug-adapter',
+        args = { 'dart' }
       }
       dap.adapters.flutter = {
         type = 'executable',
-        command = vim.fn.stdpath('data')..'/mason/bin/dart-debug-adapter',
-        args = {'flutter'}
+        command = vim.fn.stdpath('data') .. '/mason/bin/dart-debug-adapter',
+        args = { 'flutter' }
       }
       dap.configurations.dart = {
         {
@@ -524,33 +532,33 @@ return {
       -- Kotlin projects have very weak project structure conventions.
       -- You must manually specify what the project root and main class are.
       dap.adapters.kotlin = {
-        type = 'executable';
-        command = vim.fn.stdpath('data')..'/mason/bin/kotlin-debug-adapter',
+        type = 'executable',
+        command = vim.fn.stdpath('data') .. '/mason/bin/kotlin-debug-adapter',
       }
       dap.configurations.kotlin = {
-          {
-              type = 'kotlin';
-              request = 'launch';
-              name = 'Launch kotlin program';
-              projectRoot = "${workspaceFolder}/app"; -- ensure this is correct
-              mainClass = "AppKt";                    -- ensure this is correct
-          };
+        {
+          type = 'kotlin',
+          request = 'launch',
+          name = 'Launch kotlin program',
+          projectRoot = "${workspaceFolder}/app", -- ensure this is correct
+          mainClass = "AppKt",                    -- ensure this is correct
+        },
       }
 
       -- Javascript / Typescript (firefox)
       dap.adapters.firefox = {
         type = 'executable',
-        command = vim.fn.stdpath('data')..'/mason/bin/firefox-debug-adapter',
+        command = vim.fn.stdpath('data') .. '/mason/bin/firefox-debug-adapter',
       }
       dap.configurations.typescript = {
         {
-        name = 'Debug with Firefox',
-        type = 'firefox',
-        request = 'launch',
-        reAttach = true,
-        url = 'http://localhost:4200', -- Write the actual URL of your project.
-        webRoot = '${workspaceFolder}',
-        firefoxExecutable = '/usr/bin/firefox'
+          name = 'Debug with Firefox',
+          type = 'firefox',
+          request = 'launch',
+          reAttach = true,
+          url = 'http://localhost:4200', -- Write the actual URL of your project.
+          webRoot = '${workspaceFolder}',
+          firefoxExecutable = '/usr/bin/firefox'
         }
       }
       dap.configurations.javascript = dap.configurations.typescript
@@ -600,36 +608,36 @@ return {
 
       -- Shell
       dap.adapters.bashdb = {
-        type = 'executable';
-        command = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/bash-debug-adapter';
-        name = 'bashdb';
+        type = 'executable',
+        command = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/bash-debug-adapter',
+        name = 'bashdb',
       }
       dap.configurations.sh = {
         {
-          type = 'bashdb';
-          request = 'launch';
-          name = "Launch file";
-          showDebugOutput = true;
-          pathBashdb = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb';
-          pathBashdbLib = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir';
-          trace = true;
-          file = "${file}";
-          program = "${file}";
-          cwd = '${workspaceFolder}';
-          pathCat = "cat";
-          pathBash = "/bin/bash";
-          pathMkfifo = "mkfifo";
-          pathPkill = "pkill";
-          args = {};
-          env = {};
-          terminalKind = "integrated";
+          type = 'bashdb',
+          request = 'launch',
+          name = "Launch file",
+          showDebugOutput = true,
+          pathBashdb = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir/bashdb',
+          pathBashdbLib = vim.fn.stdpath("data") .. '/mason/packages/bash-debug-adapter/extension/bashdb_dir',
+          trace = true,
+          file = "${file}",
+          program = "${file}",
+          cwd = '${workspaceFolder}',
+          pathCat = "cat",
+          pathBash = "/bin/bash",
+          pathMkfifo = "mkfifo",
+          pathPkill = "pkill",
+          args = {},
+          env = {},
+          terminalKind = "integrated",
         }
       }
 
       -- Elixir
       dap.adapters.mix_task = {
         type = 'executable',
-        command = vim.fn.stdpath("data") .. '/mason/bin/elixir-ls-debugger';
+        command = vim.fn.stdpath("data") .. '/mason/bin/elixir-ls-debugger',
         args = {}
       }
       dap.configurations.elixir = {
@@ -637,7 +645,7 @@ return {
           type = "mix_task",
           name = "mix test",
           task = 'test',
-          taskArgs = {"--trace"},
+          taskArgs = { "--trace" },
           request = "launch",
           startApps = true, -- for Phoenix projects
           projectDir = "${workspaceFolder}",
@@ -647,7 +655,6 @@ return {
           }
         },
       }
-
     end, -- of dap config
     dependencies = {
       {
@@ -802,8 +809,10 @@ return {
         desc = "Auto generate C/C++ tags",
         callback = function()
           local is_c = vim.bo.filetype == "c" or vim.bo.filetype == "cpp"
-          if is_c then vim.g.gutentags_enabled = 1
-          else vim.g.gutentags_enabled = 0
+          if is_c then
+            vim.g.gutentags_enabled = 1
+          else
+            vim.g.gutentags_enabled = 0
           end
         end,
       })
