@@ -388,7 +388,8 @@ return {
       "hrsh7th/cmp-buffer",
       "hrsh7th/cmp-path",
       "hrsh7th/cmp-nvim-lsp",
-      "zbirenbaum/copilot-cmp"
+      "zbirenbaum/copilot-cmp",
+      "hrsh7th/cmp-emoji"
     },
     event = "InsertEnter",
     opts = function()
@@ -519,6 +520,7 @@ return {
           { name = "buffer",   priority = 250 },
           { name = "path",     priority = 250 },
           { name = "copilot",  priority = 750 },
+          { name = "emoji",    priority = 500, insert = false },
         },
       }
     end,
