@@ -292,8 +292,8 @@ return {
     opts = {
       ui = {
         border = "rounded",
-        width = 0.5,
-        height = 0.5,
+        width = 0.75,
+        height = 0.75,
         icons = {
           package_installed = "✓",
           package_uninstalled = "✗",
@@ -432,6 +432,7 @@ return {
           cmp_tabnine = 1,
           buffer = 1,
           path = 1,
+          copilot = 1,
         },
         confirm_opts = {
           behavior = cmp.ConfirmBehavior.Replace,
@@ -514,6 +515,7 @@ return {
           --   end
           -- end, { "i", "s" }),
         },
+
         sources = cmp.config.sources {
           { name = "nvim_lsp", priority = 1000 },
           { name = "luasnip",  priority = 750 },

@@ -638,7 +638,7 @@ return {
           layout_config = {
             horizontal = {
               prompt_position = "top",
-              preview_width = 0.50,
+              preview_width = 0.7,
             },
             vertical = {
               mirror = false,
@@ -807,7 +807,7 @@ return {
   {
     "onsails/lspkind.nvim",
     opts = {
-      mode = "symbol",
+      mode = "text_symbol",
       symbol_map = {
         Array = "󰅪",
         Boolean = "⊨",

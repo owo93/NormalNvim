@@ -20,7 +20,7 @@
 --      -> plugin_opts           → Return a plugin opts table.
 --      -> load_plugin_with_func → Load a plugin before running a command.
 --      -> which_key_register    → When setting a mapping, add it to whichkey.
---      -> M.empty_map_table     → Return a mappings table.
+--      -> M.empty_map_table     → Return a mappings table.plugin_opts
 --      -> set_mappings          → We use it to create mappings in a clean way.
 --      -> delete_url_effect     → Don't show an effect for urls.
 --      -> set_url_effect        → Show an effect for urls.
@@ -170,8 +170,10 @@ end
 ---@param type number|nil The type of the notification (:help vim.log.levels).
 ---@param opts? table The nvim-notify options to use (:help notify-options).
 function M.notify(msg, type, opts)
-  vim.schedule(function() vim.notify(
-    msg, type, M.extend_tbl({ title = "Neovim" }, opts)) end)
+  vim.schedule(function()
+    vim.notify(
+      msg, type, M.extend_tbl({ title = "Neovim" }, opts))
+  end)
 end
 
 --- Trigger an internal NormalNvim event.
@@ -198,8 +200,8 @@ function M.system_open(path)
   elseif vim.fn.has "unix" == 1 and vim.fn.executable "xdg-open" == 1 then
     cmd = { "xdg-open" }
   elseif
-    (vim.fn.has "mac" == 1 or vim.fn.has "unix" == 1)
-    and vim.fn.executable "open" == 1
+      (vim.fn.has "mac" == 1 or vim.fn.has "unix" == 1)
+      and vim.fn.executable "open" == 1
   then
     cmd = { "open" }
   end
@@ -372,7 +374,7 @@ end
 
 --- regex used for matching a valid URL/URI string
 M.url_matcher =
-  "\\v\\c%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)%([&:#*@~%_\\-=?!+;/0-9a-z]+%(%([.;/?]|[.][.]+)[&:#*@~%_\\-=?!+/0-9a-z]+|:\\d+|,%(%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)@![0-9a-z]+))*|\\([&:#*@~%_\\-=?!+;/.0-9a-z]*\\)|\\[[&:#*@~%_\\-=?!+;/.0-9a-z]*\\]|\\{%([&:#*@~%_\\-=?!+;/.0-9a-z]*|\\{[&:#*@~%_\\-=?!+;/.0-9a-z]*})\\})+"
+"\\v\\c%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)%([&:#*@~%_\\-=?!+;/0-9a-z]+%(%([.;/?]|[.][.]+)[&:#*@~%_\\-=?!+/0-9a-z]+|:\\d+|,%(%(%(h?ttps?|ftp|file|ssh|git)://|[a-z]+[@][a-z]+[.][a-z]+:)@![0-9a-z]+))*|\\([&:#*@~%_\\-=?!+;/.0-9a-z]*\\)|\\[[&:#*@~%_\\-=?!+;/.0-9a-z]*\\]|\\{%([&:#*@~%_\\-=?!+;/.0-9a-z]*|\\{[&:#*@~%_\\-=?!+;/.0-9a-z]*})\\})+"
 
 --- Delete the syntax matching rules for URLs/URIs if set.
 function M.delete_url_effect()
@@ -414,7 +416,5 @@ function M.confirm_quit()
     vim.cmd('confirm quit')
   end
 end
-
-
 
 return M
