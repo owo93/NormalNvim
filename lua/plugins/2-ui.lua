@@ -285,7 +285,7 @@ return {
     "echasnovski/mini.indentscope",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-      draw = { delay = 0, animation = function() return 0 end },
+      draw = { delay = 80, animation = function() return 20 end },
       options = { border = "top", try_as_border = true },
       symbol = "▏",
     },
