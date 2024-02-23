@@ -28,7 +28,7 @@ local options = {
     foldenable = true,                                      -- enable fold for nvim-ufo.
     foldlevel = 99,                                         -- set highest foldlevel for nvim-ufo.
     foldlevelstart = 99,                                    -- start with all code unfolded.
-    foldcolumn = vim.fn.has "nvim-0.9" == 1 and "1" or nil, -- show foldcolumn in nvim 0.9+.
+    foldcolumn = vim.fn.has "nvim-0.9" == 0 and "0" or nil, -- show foldcolumn in nvim 0.9+.
     ignorecase = true,                                      -- Case insensitive searching.
     infercase = true,                                       -- Infer cases in keyword completion.
     laststatus = 3,                                         -- globalstatus.
@@ -58,7 +58,7 @@ local options = {
     undodir = vim.fn.stdpath "data" .. "/undodir", -- Chooses where to store the undodir.
     history = 1000,                                -- Number of commands to remember in a history table (per buffer).
     swapfile = false,                              -- Ask what state to recover when opening a file that was not saved.
-    wrap = true,                                   -- Disable wrapping of lines longer than the width of window.
+    wrap = false,                                  -- Disable wrapping of lines longer than the width of window.
     colorcolumn = "",                              -- PEP8 like character limit vertical bar.
     mousescroll = "ver:1,hor:0",                   -- Disables hozirontal scroll in neovim.
     guicursor = "n:blinkon200,i-ci-ve:ver25",      -- Enable cursor blink.

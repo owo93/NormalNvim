@@ -7,6 +7,8 @@
 --       -> solarized-osaka             [theme]
 --       -> vitesse                     [theme]
 --       -> night-owl                   [theme]
+--       -> oxocarbon                   [theme]
+--       -> nightfly                    [theme]
 --       -> alpha-nvim                  [greeter]
 --       -> nvim-notify                 [notifications]
 --       -> mini.indentscope            [guides]
@@ -95,8 +97,25 @@ return {
     "oxfist/night-owl.nvim",
     event = "User LoadColorSchemes",
     -- config = function()
-    --
     -- end,
+  },
+
+  -- oxocarbon [theme]
+  -- https://github.com/nyoom-engineering/oxocarbon.nvim
+  {
+    "nyoom-engineering/oxocarbon.nvim",
+    event = "User LoadColorSchemes"
+  },
+
+  -- nightfly [theme]
+  -- https://github.com/bluz71/vim-nightfly-guicolors
+  {
+    "bluz71/vim-nightfly-guicolors",
+    event = "User LoadColorSchemes",
+    init = function()
+      vim.g.nightflyTransparent = true
+      vim.g.nightflyWinSeparator = 0
+    end,
   },
 
   --  alpha-nvim [greeter]

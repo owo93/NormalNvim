@@ -85,8 +85,8 @@ require("lazy").setup({
   lockfile = vim.fn.stdpath "cache" .. "/lazy-lock.json",
   ui = {
     size = {
-      width = 0.5,
-      height = 0.5,
+      width = 0.78,
+      height = 0.78,
     },
     border = "rounded",
   },
