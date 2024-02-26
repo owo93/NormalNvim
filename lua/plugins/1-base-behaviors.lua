@@ -23,8 +23,8 @@
 --       -> nvim-autopairs         [auto close brackets]
 --       -> lsp_signature.nvim     [auto params help]
 
-local windows = vim.fn.has('win32') == 1             -- true if on windows
-local android = vim.fn.isdirectory('/system') == 1   -- true if on android
+local windows = vim.fn.has('win32') == 1           -- true if on windows
+local android = vim.fn.isdirectory('/system') == 1 -- true if on android
 
 -- configures plugins
 return {
@@ -46,7 +46,7 @@ return {
       -- vim.g.rnvimr_vanilla = 1            -- Often solves issues in your ranger config.
       vim.g.rnvimr_enable_picker = 1         -- Close rnvimr after choosing a file.
       vim.g.rnvimr_ranger_cmd = { "ranger" } -- By passing a script like TERM=foot ranger "$@" you can open terminals inside ranger.
-      if android then -- Open on full screenn
+      if android then                        -- Open on full screenn
         vim.g.rnvimr_layout = {
           relative = "editor",
           width = 200,
@@ -86,10 +86,10 @@ return {
       manual_mode = false,
 
       -- Don't auto-chdir for specific filetypes.
-      exclude_filetype_chdir = {"", "OverseerList", "alpha"},
+      exclude_filetype_chdir = { "", "OverseerList", "alpha" },
 
       -- Don't auto-chdir for specific buftypes.
-      exclude_buftype_chdir = {"nofile", "terminal"},
+      exclude_buftype_chdir = { "nofile", "terminal" },
 
       --ignore_lsp = { "lua_ls" },
     },
@@ -185,7 +185,7 @@ return {
       size = 10,
       open_mapping = [[<F7>]],
       shading_factor = 2,
-      direction = "float",
+      direction = "horizontal",
       float_opts = {
         border = "rounded",
         highlights = { border = "Normal", background = "Normal" },
@@ -219,7 +219,7 @@ return {
       --      This won't be necessary once neovim fixes:
       --      https://github.com/neovim/neovim/issues/12242
       vim.api.nvim_create_autocmd({ 'BufWritePre' }, {
-        callback = function ()
+        callback = function()
           session_manager.save_current_session()
         end
       })
@@ -415,7 +415,7 @@ return {
             if node.type == "directory" or node:has_children() then
               if not node:is_expanded() then -- if unexpanded, expand
                 state.commands.toggle_node(state)
-              else -- if expanded and has children, seleect the next child
+              else                           -- if expanded and has children, seleect the next child
                 require("neo-tree.ui.renderer").focus_node(
                   state,
                   node:get_child_ids()[1]
@@ -535,20 +535,20 @@ return {
 
         -- only use indent until a file is opened
         return (filetype == "" or buftype == "nofile") and "indent"
-          or function(bufnr)
-            return require("ufo")
-                .getFolds(bufnr, "lsp")
-                :catch(
-                  function(err)
-                    return handleFallbackException(bufnr, err, "treesitter")
-                  end
-                )
-                :catch(
-                  function(err)
-                    return handleFallbackException(bufnr, err, "indent")
-                  end
-                )
-          end
+            or function(bufnr)
+              return require("ufo")
+                  .getFolds(bufnr, "lsp")
+                  :catch(
+                    function(err)
+                      return handleFallbackException(bufnr, err, "treesitter")
+                    end
+                  )
+                  :catch(
+                    function(err)
+                      return handleFallbackException(bufnr, err, "indent")
+                    end
+                  )
+            end
       end,
     },
   },
@@ -558,7 +558,7 @@ return {
   --  By default registers are deleted between sessions.
   {
     "AckslD/nvim-neoclip.lua",
-    requires = { {'nvim-telescope/telescope.nvim'} },
+    requires = { { 'nvim-telescope/telescope.nvim' } },
     config = function() require('neoclip').setup() end,
   },
 
@@ -653,12 +653,13 @@ return {
         handler_opts = round_borders, -- Window style
 
         -- Hint mode
-        hint_enable = false,          -- Display it as hint.
+        hint_enable = false, -- Display it as hint.
         hint_prefix = "👈 "
 
         -- Additionally, you can use <space>ui to toggle inlay hints.
-      } end,
-    config = function(_, opts) require'lsp_signature'.setup(opts) end
+      }
+    end,
+    config = function(_, opts) require 'lsp_signature'.setup(opts) end
   },
 
 }

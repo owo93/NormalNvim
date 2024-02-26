@@ -28,7 +28,7 @@ local options = {
     foldenable = true,                                      -- enable fold for nvim-ufo.
     foldlevel = 99,                                         -- set highest foldlevel for nvim-ufo.
     foldlevelstart = 99,                                    -- start with all code unfolded.
-    foldcolumn = vim.fn.has "nvim-0.9" == 0 and "0" or nil, -- show foldcolumn in nvim 0.9+.
+    foldcolumn = vim.fn.has "nvim-0.9" == 1 and "1" or nil, -- show foldcolumn in nvim 0.9+.
     ignorecase = true,                                      -- Case insensitive searching.
     infercase = true,                                       -- Infer cases in keyword completion.
     laststatus = 3,                                         -- globalstatus.
@@ -53,7 +53,7 @@ local options = {
     virtualedit = "block",                                  -- allow going past end of line in visual block mode.
     writebackup = false,                                    -- Disable making a backup before overwriting a file.
 
-    -- Aditions
+    -- Additions
     shada = "!,'1000,<50,s10,h",                   -- Remember the last 1000 opened files
     undodir = vim.fn.stdpath "data" .. "/undodir", -- Chooses where to store the undodir.
     history = 1000,                                -- Number of commands to remember in a history table (per buffer).
