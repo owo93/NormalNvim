@@ -11,7 +11,7 @@
 --       -> nightfly                    [theme]
 --       -> alpha-nvim                  [greeter]
 --       -> nvim-notify                 [notifications]
---       -> mini.indentscope            [guides]
+--       -> indent-blankline.nvim       [indentlines]
 --       -> heirline                    [statusbar]
 --       -> telescope                   [search]
 --       -> telescope-fzf-native.nvim   [search backend]
@@ -298,34 +298,28 @@ return {
     end,
   },
 
-  --  mini.indentscope [guides]
-  --  https://github.com/echasnovski/mini.indentscope
+  -- indent-blankline [guides]
+  -- https://github.com/lukas-reineke/indent-blankline.nvim
   {
-    "echasnovski/mini.indentscope",
+    "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-      draw = { delay = 80, animation = function() return 20 end },
-      options = { border = "top", try_as_border = true },
-      symbol = "▏",
+      indent = {
+        char = "│",
+        tab_char = "|",
+      }
     },
-    config = function(_, opts)
-      require("mini.indentscope").setup(opts)
-
-      -- Disable for certain filetypes
-      vim.api.nvim_create_autocmd({ "BufEnter" }, {
-        desc = "Disable indentscope for certain filetypes",
-        callback = function()
-          if vim.bo.filetype == "alpha"
-              or vim.bo.filetype == "neo-tree"
-              or vim.bo.filetype == "mason"
-              or vim.bo.filetype == "notify"
-              or vim.bo.filetype == "leetcode.nvim"
-          then
-            vim.b.miniindentscope_disable = true
-          end
-        end,
-      })
-    end
+    scope = { enabled = true },
+    exclude = {
+      filetypes = {
+        'alpha',
+        'neo-tree',
+        'mason',
+        'notify',
+        'leetcode.nvim'
+      }
+    },
+    main = "ibl"
   },
 
   --  heirline [statusbar]
@@ -699,11 +693,11 @@ return {
         utils.is_available "nvim-notify",
         "notify"
       )
-      utils.conditional_func(
-        telescope.load_extension,
-        utils.is_available "telescope-fzf-native.nvim",
-        "fzf"
-      )
+      -- utils.conditional_func(
+      --   telescope.load_extension,
+      --   utils.is_available "telescope-fzf-native.nvim",
+      --   "fzf"
+      -- )
       utils.conditional_func(
         telescope.load_extension,
         utils.is_available "telescope-undo.nvim",
