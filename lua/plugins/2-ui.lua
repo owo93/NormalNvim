@@ -11,7 +11,7 @@
 --       -> nightfly                    [theme]
 --       -> alpha-nvim                  [greeter]
 --       -> nvim-notify                 [notifications]
---       -> indent-blankline.nvim       [indentlines]
+--       -> mini.indentscope            [guides]
 --       -> heirline                    [statusbar]
 --       -> telescope                   [search]
 --       -> telescope-fzf-native.nvim   [search backend]
@@ -298,28 +298,34 @@ return {
     end,
   },
 
-  -- indent-blankline [guides]
-  -- https://github.com/lukas-reineke/indent-blankline.nvim
+  --  mini.indentscope [guides]
+  --  https://github.com/echasnovski/mini.indentscope
   {
-    "lukas-reineke/indent-blankline.nvim",
+    "echasnovski/mini.indentscope",
     event = { "BufReadPre", "BufNewFile" },
     opts = {
-      indent = {
-        char = "│",
-        tab_char = "|",
-      }
+      draw = { delay = 80, animation = function() return 20 end },
+      options = { border = "both", try_as_border = true },
+      symbol = "| "
     },
-    scope = { enabled = true },
-    exclude = {
-      filetypes = {
-        'alpha',
-        'neo-tree',
-        'mason',
-        'notify',
-        'leetcode.nvim'
-      }
-    },
-    main = "ibl"
+    config = function(_, opts)
+      require("mini.indentscope").setup(opts)
+
+      -- Disable for certain filetypes
+      vim.api.nvim_create_autocmd({ "BufEnter" }, {
+        desc = "Disable indentscope for certain filetypes",
+        callback = function()
+          if vim.bo.filetype == "alpha"
+              or vim.bo.filetype == "neo-tree"
+              or vim.bo.filetype == "mason"
+              or vim.bo.filetype == "notify"
+              or vim.bo.filetype == "leetcode.nvim"
+          then
+            vim.b.miniindentscope_disable = true
+          end
+        end,
+      })
+    end
   },
 
   --  heirline [statusbar]
