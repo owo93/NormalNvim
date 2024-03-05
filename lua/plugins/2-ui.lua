@@ -252,8 +252,8 @@ return {
             " ",
             " ",
             " ",
-            "Loaded " .. stats.count .. " plugins  in " .. ms .. "ms",
-            "..............................",
+            "Loaded " .. stats.loaded .. "/" .. stats.count .. " plugins  in " .. ms .. "ms",
+            "..................................",
           }
           opts.section.footer.opts.hl = "DashboardFooter"
           vim.cmd "highlight DashboardFooter guifg=#D29B68"
@@ -417,9 +417,11 @@ return {
           },
         },
         statuscolumn = vim.fn.has "nvim-0.9" == 1 and {
+          status.component.fill(),
           status.component.foldcolumn(),
           status.component.fill(),
           status.component.numbercolumn(),
+          status.component.fill(),
           status.component.signcolumn(),
         } or nil,
       }

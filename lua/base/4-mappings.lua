@@ -34,7 +34,6 @@
 --       -> tests                              [tests]
 --       -> nvim-ufo
 --       -> code documentation                 [docs]
---       -> ask chatgpt                        [neural]
 --       -> hop.nvim
 
 --
@@ -1277,14 +1276,6 @@ if is_available "markdown-preview.nivm" or is_available "markmap.nvim" or is_ava
       desc = "Open documentation",
     }
   end
-end
-
--- [neural] -----------------------------------------------------------------
-if is_available "copilot" or is_available "neural" then
-  maps.n["<leader>a"] = {
-    function() require("neural").prompt() end,
-    desc = "Ask chatgpt",
-  }
 end
 
 -- hop.nivm ----------------------------------------------------------------

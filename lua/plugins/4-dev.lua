@@ -22,7 +22,6 @@
 --       -> markmap.nvim                   [markdown mindmap]
 
 --       ## ARTIFICIAL INTELLIGENCE
---       -> neural                         [chatgpt code generator]
 --       -> copilot                        [github code suggestions]
 --       -> guess-indent                   [guess-indent]
 
@@ -240,26 +239,6 @@ return {
     config = function(_, opts) require("markmap").setup(opts) end,
   },
 
-  --  ARTIFICIAL INTELLIGENCE  -------------------------------------------------
-  -- neural [chatgpt code generator]
-  -- https://github.com/dense-analysis/neural
-  {
-    "dense-analysis/neural",
-    cmd = { "Neural" },
-    config = function()
-      require("neural").setup {
-        source = {
-          openai = {
-            api_key = vim.env.OPENAPI_API_KEY,
-          },
-        },
-        ui = {
-          prompt_icon = ">",
-        },
-      }
-    end,
-  },
-  --
   --  copilot [github code suggestions]
   --  https://github.com/zbirenbaum/copilot.lua
   --  As alternative to chatgpt, you can use copilot uncommenting this.
