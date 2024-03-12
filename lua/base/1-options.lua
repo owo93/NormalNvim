@@ -11,7 +11,7 @@
 _G.base = {}
 
 -- Theme
-base.default_colorscheme = "nightfly"
+base.default_colorscheme = "vitesse"
 
 -- define variables -----------------------------------------------------------
 local options = {
