@@ -12,6 +12,7 @@
 --       -> alpha-nvim                  [greeter]
 --       -> nvim-notify                 [notifications]
 --       -> mini.indentscope            [guides]
+--       -> indent-blankline.nvim       [indentlines]
 --       -> heirline                    [statusbar]
 --       -> telescope                   [search]
 --       -> telescope-fzf-native.nvim   [search backend]
@@ -305,8 +306,8 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       draw = { delay = 80, animation = function() return 20 end },
-      options = { border = "both", try_as_border = true },
-      symbol = "| "
+      options = { try_as_border = true },
+      symbol = "|"
     },
     config = function(_, opts)
       require("mini.indentscope").setup(opts)
@@ -326,6 +327,20 @@ return {
         end,
       })
     end
+  },
+
+  -- indent-blankline.nvim [indent]
+  -- https://github.com/lukas-reineke/indent-blankline.nvim
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      indent = {
+        char = "",
+        tab_char = "",
+      }
+    },
+    main = "ibl",
   },
 
   --  heirline [statusbar]
