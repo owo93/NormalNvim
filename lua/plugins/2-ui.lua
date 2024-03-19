@@ -336,8 +336,8 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       indent = {
-        char = "",
-        tab_char = "",
+        char = "│",
+        tab_char = "│",
       }
     },
     main = "ibl",
