@@ -16,7 +16,7 @@ The space key shows [all you can do](https://github.com/NormalNvim/NormalNvim/wi
 git clone https://github.com/owo93/NormalNvim.git ~/.config/nvim
 ```
 
-## Install (Windows PowerShell)
+## Install (PowerShell)
 
 ```sh
 # Strongly recommended: Fork the repo and clone YOUR fork.
