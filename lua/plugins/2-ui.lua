@@ -7,7 +7,6 @@
 --       -> solarized-osaka             [theme]
 --       -> vitesse                     [theme]
 --       -> night-owl                   [theme]
---       -> oxocarbon                   [theme]
 --       -> nightfly                    [theme]
 --       -> alpha-nvim                  [greeter]
 --       -> nvim-notify                 [notifications]
@@ -99,13 +98,6 @@ return {
     event = "User LoadColorSchemes",
     -- config = function()
     -- end,
-  },
-
-  -- oxocarbon [theme]
-  -- https://github.com/nyoom-engineering/oxocarbon.nvim
-  {
-    "nyoom-engineering/oxocarbon.nvim",
-    event = "User LoadColorSchemes"
   },
 
   -- nightfly [theme]
