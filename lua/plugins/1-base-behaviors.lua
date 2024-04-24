@@ -7,6 +7,7 @@
 --       -> trim.nvim              [auto trim spaces]
 --       -> stickybuf.nvim         [lock special buffers]
 --       -> mini.bufremove         [smart bufdelete]
+--       -> mini.surround          [surround text objects]
 --       -> nvim-window-picker     [select buffer with a letter]
 --       -> smart-splits           [move and resize buffers]
 --       -> better-scape.nvim      [esc]
@@ -127,6 +128,14 @@ return {
     "echasnovski/mini.bufremove",
     event = "User BaseFile"
   },
+
+  -- mini.surround [surround text objects]
+  -- https://github.com/echasnovski/mini.surround
+  {
+    "echasnovski/mini.surround",
+    event = "User BaseFile",
+    config = function() require("mini.surround").setup() end
+  }
 
   -- nvim-window-picker  [select buffer with a letter]
   -- https://github.com/s1n7ax/nvim-window-picker
