@@ -62,6 +62,7 @@ return {
     },
     build = ":TSUpdate",
     opts = {
+      ensure_installed = { 'bash', 'c', 'html', 'lua', 'luadoc', 'markdown', 'vim', 'vimdoc' },
       auto_install = false, -- Currently bugged. Use [:TSInstall all] and [:TSUpdate all]
       autotag = { enable = true },
       context_commentstring = { enable = true, enable_autocmd = false },
