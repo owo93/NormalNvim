@@ -135,7 +135,7 @@ return {
     "echasnovski/mini.surround",
     event = "User BaseFile",
     config = function() require("mini.surround").setup() end
-  }
+  },
 
   -- nvim-window-picker  [select buffer with a letter]
   -- https://github.com/s1n7ax/nvim-window-picker
