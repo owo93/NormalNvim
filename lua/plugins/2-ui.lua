@@ -107,6 +107,7 @@ return {
     event = "User LoadColorSchemes",
     init = function()
       vim.g.nightflyTransparent = true
+      vim.g.nightflyNormalFloat = false
       vim.g.nightflyWinSeparator = 0
     end,
   },
