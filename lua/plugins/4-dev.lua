@@ -5,6 +5,9 @@
 --       ## COMMENTS
 --       -> comment.nvim                   [comment with a key]
 
+--      ## SURROUND
+--      -> nvim-surround                   [surround text]
+
 --       ## SNIPPETS
 --       -> luasnip                        [snippet engine]
 --       -> friendly-snippets              [snippet templates]
@@ -62,6 +65,20 @@ return {
           and { pre_hook = commentstring.create_pre_hook() }
           or {}
     end,
+  },
+
+  -- SURROUND ----------------------------------------------------------------
+  -- Surround text [surround text]
+  -- https://github.com/kylechui/nvim-surround
+  {
+    "kylechui/nvim-surround",
+    version = "*", -- Use for stability; omit to use `main` branch for the latest features
+    event = "VeryLazy",
+    config = function()
+        require("nvim-surround").setup({
+            -- Configuration here, or leave empty to use defaults
+        })
+    end
   },
 
   --  SNIPPETS ----------------------------------------------------------------
