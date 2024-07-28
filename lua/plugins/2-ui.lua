@@ -8,6 +8,7 @@
 --       -> vitesse                     [theme]
 --       -> night-owl                   [theme]
 --       -> nightfly                    [theme]
+--       -> oldworld.nvim              [theme]
 --       -> alpha-nvim                  [greeter]
 --       -> nvim-notify                 [notifications]
 --       -> mini.indentscope            [guides]
@@ -110,6 +111,13 @@ return {
       vim.g.nightflyNormalFloat = false
       vim.g.nightflyWinSeparator = 0
     end,
+  },
+  -- oldworld.nvim [theme]
+  -- https://github.com/dgox16/oldworld.nvim
+  {
+    "dgox16/oldworld.nvim",
+    lazy = false,
+    priority = 1000,
   },
 
   --  alpha-nvim [greeter]
