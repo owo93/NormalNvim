@@ -109,7 +109,7 @@ return {
     init = function()
       vim.g.nightflyTransparent = true
       vim.g.nightflyNormalFloat = false
-      vim.g.nightflyWinSeparator = 0
+      vim.g.nightflyWinSeparator = 2
     end,
   },
   -- oldworld.nvim [theme]
